@@ -47,6 +47,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposepractise.ui.theme.BasicsCodelabTheme
+import com.example.jetpackcomposepractise.ui.theme.designutils.CoilImage
+
 import com.example.jetpackcomposepractise.ui.theme.designutils.ExpandableCard
 import com.example.jetpackcomposepractise.ui.theme.designutils.GoogleButton
 import com.example.jetpackcomposepractise.ui.theme.designutils.InputDesign
@@ -73,7 +75,10 @@ class MainActivity : ComponentActivity() {
                                 "this is description test allow me to perform \n kya samjhe re a sasda sdkada sdla dasl dasj dajk djlas dla sd \n akdaksdoaksdakdpapsda sdajkd akjd akjd \n"
                             )
                             InputDesign()
-                            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
                                 GoogleButton(
                                     Modifier
                                         .fillMaxWidth(0.7f)
@@ -89,6 +94,7 @@ class MainActivity : ComponentActivity() {
                                     Log.e("rohan", "onCreate: button clicked")
                                 }
                             }
+                            CoilImage()
 
                         }
 

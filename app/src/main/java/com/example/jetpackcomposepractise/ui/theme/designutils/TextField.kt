@@ -2,13 +2,13 @@ package com.example.jetpackcomposepractise.ui.theme.designutils
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,6 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposepractise.ui.theme.BasicsCodelabTheme
@@ -39,6 +41,9 @@ fun InputDesign() {
         verticalArrangement = Arrangement.Center
     ) {
         var text by remember { mutableStateOf("") }
+        var visibility by remember { mutableStateOf(false) }
+
+        val icon = if (visibility) Icons.Filled.VisibilityOff else Icons.Filled.Visibility
 
         OutlinedTextField(
             value = text,
@@ -47,9 +52,11 @@ fun InputDesign() {
             shape = RoundedCornerShape(12.dp),
 
             trailingIcon = {
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    visibility = !visibility
+                }) {
                     Icon(
-                        imageVector = Icons.Filled.Visibility,
+                        imageVector = icon,
                         contentDescription = "This is eye button"
                     )
                 }
@@ -60,11 +67,12 @@ fun InputDesign() {
                 }
             },
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
+                keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Go
             ),
+            visualTransformation = if (visibility) VisualTransformation.None else PasswordVisualTransformation(),
 
-            label = { Text("Enter Name Here") }
+            label = { Text("Enter Password Here") }
 
         )
 

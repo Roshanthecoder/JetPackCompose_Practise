@@ -1,11 +1,8 @@
 package com.example.jetpackcomposepractise
 
-import android.content.Context
-import android.hardware.usb.UsbDevice.getDeviceId
 import android.os.Build
 import android.provider.Settings
 import android.widget.Toast
-import androidx.compose.runtime.CompositionContext
 
 val application = MyApplication.getMyApplication()
 val DEVICE_NAME = Build.DEVICE + " " + Build.MODEL + " " + Build.MANUFACTURER

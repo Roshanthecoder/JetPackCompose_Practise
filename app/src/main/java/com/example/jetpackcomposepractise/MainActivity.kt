@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,6 +38,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -48,13 +50,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposepractise.ui.theme.BasicsCodelabTheme
 import com.example.jetpackcomposepractise.ui.theme.designutils.CoilImage
-
+import com.example.jetpackcomposepractise.ui.theme.designutils.CustomItem
 import com.example.jetpackcomposepractise.ui.theme.designutils.ExpandableCard
 import com.example.jetpackcomposepractise.ui.theme.designutils.GoogleButton
+import com.example.jetpackcomposepractise.ui.theme.designutils.GradientButton
 import com.example.jetpackcomposepractise.ui.theme.designutils.InputDesign
+import com.example.jetpackcomposepractise.ui.theme.designutils.Person
 
 
 class MainActivity : ComponentActivity() {
+
+    private val personList by lazy {
+        ArrayList<Person>().apply {
+            repeat(10) { index ->
+                add(Person(index, "Roshan$index", "Kumar$index", 20 + index))
+            }
+        }
+    }
+    private val sectionsList by lazy {
+        listOf("A", "B", "C", "D", "E")
+    }
+
+    @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -67,7 +84,9 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.inversePrimary)
-                            .padding(10.dp),
+                            .padding(10.dp)
+
+
                     ) {
                         item {
                             ExpandableCard(
@@ -75,6 +94,8 @@ class MainActivity : ComponentActivity() {
                                 "this is description test allow me to perform \n kya samjhe re a sasda sdkada sdla dasl dasj dajk djlas dla sd \n akdaksdoaksdakdpapsda sdajkd akjd akjd \n"
                             )
                             InputDesign()
+                        }
+                        item {
                             Box(
                                 modifier = Modifier.fillMaxWidth(),
                                 contentAlignment = Alignment.Center
@@ -95,8 +116,55 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             CoilImage()
-
+                            GradientButton(
+                                "Hii Roshan", Color.White, Brush.horizontalGradient(
+                                    colors = listOf(Color.Red, Color.Blue)
+                                )
+                            ) {
+                                Log.e("Roshan", "PreviewButton: Clicked")
+                            }
                         }
+
+                        /*  items(items = personList) { person ->
+                              Card(
+                                  modifier = Modifier
+                                      .padding(8.dp)
+                                      .fillMaxWidth()
+                                      .clickable {
+                                          Log.d(
+                                              "PersonClick",
+                                              "Clicked on: ${person.id} ${person.lastName}"
+                                          )
+                                      },
+                                  shape = ShapeDefaults.Medium,
+                                  elevation = CardDefaults.cardElevation(7.dp)
+                              ) {
+
+                                  CustomItem(person = person)
+                              }
+
+
+                          }*/
+
+
+
+                        sectionsList.forEach { section ->
+                            stickyHeader {
+                                Text(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(Color.LightGray)
+                                        .padding(12.dp),
+                                    text = "Section $section"
+                                )
+                            }
+                            items(personList) {person->
+
+                                CustomItem(person)
+
+                            }
+                        }
+
 
                     }
 
